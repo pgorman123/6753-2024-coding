@@ -1,7 +1,0 @@
-public class Vest
-{
-    public static void main(String [] args)
-    {
-        System.out.println("Mr Lemke is the man");
-    }
-}
