@@ -1,0 +1,89 @@
+Auto 1
+	Example Trajectory
+	Goes Straight for 1.5 meters
+	
+
+Auto 2
+	Produces a code error
+	
+
+Auto 3
+	Place High Cube
+	Balance on Charging Startion
+	
+Auto 4
+	Place High Cube
+	Moved 5 meeters
+	And was supposed to auto balance
+	
+Auto 5
+	Place High Cube
+	Moved back in C motion to right
+	
+Auto 6
+	Place High Cube
+	Move back in C motion to the Left
+	
+Auto 85
+	Placed High Cube
+	Allison auto Balance on Charging Station
+	
+	
+Auto 1 
+	2.15 in bottom 1 trajectory 
+	Moved 5.5 feet
+	1   was 2 feet 3 inches
+	
+	So We entered 2 
+	That equated to a 5 foot movement
+	The robot turned 
+	So we are trying other numbers to effect curve
+	
+	Translation 2d 0,0     x=1  y=0  This cause the robot to have same movement but do it faster
+			1,0          x=1 y=0  moved slower
+			5,0         x=1  y=0  did not move at all
+			2,0         x=1  y=0  did not move at all
+			.5,0        x=0  y=0  Nothing happene
+			.5,0        x=.5  y=0  move just like before
+			.5            x=0  y=0  Nothing happened
+			
+	New Test 
+	
+		.5 ,0  X=1  y=0
+		Translation 2d  2, 1     
+		Same distance forward 5 feet - moved 4 feet to the left
+		
+		.5, 0 x=1   y=0 
+		Translation 2d 2,1    Rotation 1   
+		SO the Rotation to 1 made the bot turn almost 90 degrees
+		
+		.5, 0 x=1   y=0 
+		Translation 2d 2,1    Rotation  -1   
+		Rotated the bot in opposite direction still moved to the left Same position
+		
+		.5, 0 x=1   y=0 
+		Translation 2d 2,-1    Rotation  -1   
+		Rotated the bot in opposite direction still moved to the left Same position
+		
+		List of new Tralation 2d x .5, y1      New translation 2 d x1, y0
+		Translation 2d 2,1    Rotation  0   
+		This made the bot go left 3ft right 3 feet then left 3ft
+		3 separate movements
+		
+		 new pose 2d x 1, y1      Rotation 1 
+		List of new Tralation 2d x .5, y1      New translation 2 d x1, y0
+		Translation 2d 2,1    Rotation  0  
+		This made the bot move in a circle
+		Need to mess with this
+		
+		
+		Translation 2d   X value (which is the2) is distance forward
+		Translation 2d  Y value (which is 1)  makes it move left
+		Translation 2d Rotation 2d 1 or -1 turns the bot
+		Translation 2d entering -1 in the y moves it right
+		
+		
+		
+		
+			
+			
