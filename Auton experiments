@@ -1,0 +1,17 @@
+Pose 2d (x=0, y=0)
+Translation 2d(x= -.5, y=0) Translation 2d(x=1, y=0)
+Pose 2d (x=2, y=0) Rotation 2d = 0
+
+Did not run
+
+Pose 2d (x=0, y=0)
+Translation 2d(x= 2.5, y=0) Translation 2d(x=1, y=0)
+Pose 2d (x=2, y=0) Rotation 2d = 0
+
+	Did not run
+
+Pose 2d (x=0, y=0)
+Translation 2d(x= .5, y=0) Translation 2d(x=1, y=0)
+Pose 2d (x=4, y=0) Rotation 2d = 0
+
+	Ran normal. Double x=2 
