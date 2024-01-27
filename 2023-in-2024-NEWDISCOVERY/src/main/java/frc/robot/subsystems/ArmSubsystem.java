@@ -7,10 +7,10 @@ import javax.swing.RowFilter.ComparisonType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxAlternateEncoder;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import com.revrobotics.SparkMaxPIDController;
-import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMax.SoftLimitDirection;
+import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.SparkPIDController;
+import com.revrobotics.CANSparkBase.IdleMode;
+import com.revrobotics.CANSparkBase.SoftLimitDirection;
 import frc.robot.Constants.ArmContants;
 
 public class ArmSubsystem extends SubsystemBase {
@@ -19,9 +19,9 @@ public class ArmSubsystem extends SubsystemBase {
     private CANSparkMax Arm2SparkMax = new CANSparkMax(ArmContants.Arm2CANID, MotorType.kBrushless);
     private CANSparkMax Arm3SparkMax = new CANSparkMax(ArmContants.Arm3CANID, MotorType.kBrushless);
 
-    private SparkMaxPIDController Arm2FPID = Arm2FSparkMax.getPIDController();
-    private SparkMaxPIDController Arm2PID = Arm2SparkMax.getPIDController();
-    private SparkMaxPIDController Arm3PID = Arm3SparkMax.getPIDController();
+    private SparkPIDController Arm2FPID = Arm2FSparkMax.getPIDController();
+    private SparkPIDController Arm2PID = Arm2SparkMax.getPIDController();
+    private SparkPIDController Arm3PID = Arm3SparkMax.getPIDController();
 
     private static final SparkMaxAlternateEncoder.Type Arm2EncodeType = SparkMaxAlternateEncoder.Type.kQuadrature;
     private static final int Arm2CPR = 8192;
