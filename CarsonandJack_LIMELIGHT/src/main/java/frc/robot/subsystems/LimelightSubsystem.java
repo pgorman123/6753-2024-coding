@@ -11,21 +11,18 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class LimelightSubsystem extends SubsystemBase {
 
-    public LimelightSubsystem() {}
-
     public static NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+
     public static NetworkTableEntry tx = table.getEntry("tx");
     public static NetworkTableEntry ty = table.getEntry("ty");
     public static NetworkTableEntry ta = table.getEntry("ta");
 
-    //read values periodically
     public static double x = tx.getDouble(0.0);
     public static double y = ty.getDouble(0.0);
 
-    public Command limelightValueCMD() {
+    public LimelightSubsystem() {}
 
-        return run(
-            () -> {
+    public void sendLimelightValues() {
         LimelightSubsystem.table = NetworkTableInstance.getDefault().getTable("limelight");
         LimelightSubsystem.tx = table.getEntry("tx");
         LimelightSubsystem.ty = table.getEntry("ty");
@@ -36,9 +33,15 @@ public class LimelightSubsystem extends SubsystemBase {
 
         SmartDashboard.putNumber("Limelight X", LimelightSubsystem.x);
         SmartDashboard.putNumber("Limelight Y", LimelightSubsystem.y);
-            }
-        );
-
     }
 
+    @Override
+    public void periodic() {
+        SmartDashboard.putNumber("Limelight X", LimelightSubsystem.x);
+        SmartDashboard.putNumber("Limelight Y", LimelightSubsystem.y);
+    }
+
+
 }
+
+//put periodic above sendLimelightValues if not working

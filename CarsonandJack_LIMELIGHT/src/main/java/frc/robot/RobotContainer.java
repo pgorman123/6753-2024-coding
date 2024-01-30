@@ -6,6 +6,8 @@ package frc.robot;
 
 import java.util.List;
 
+import javax.naming.LimitExceededException;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
@@ -19,6 +21,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 // import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -32,6 +35,7 @@ import frc.robot.commands.AutoArmSetCMD;
 import frc.robot.commands.AutoBalance;
 import frc.robot.commands.IntakeRTP;
 import frc.robot.commands.IntakeRunWheelsCMD;
+import frc.robot.commands.LimelightCMD;
 import frc.robot.commands.TestingIntakeRunWheelsCMD;
 //import frc.robot.commands.IntakeRunWheelsToPosition;
 // import frc.robot.commands.IntakeToggleCMD;
@@ -39,6 +43,7 @@ import frc.robot.subsystems.ArmSubsystem;
 // import frc.robot.commands.IntakeSetCMD;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LimelightSubsystem;
 
 
 /*
@@ -65,10 +70,19 @@ public class RobotContainer {
   //Define an intake subsystem
   public final IntakeSubsystem theIntakeSubsystem = new IntakeSubsystem();
 
+  private final LimelightSubsystem limelightSubsystem = new LimelightSubsystem();
+
+
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
+
   public RobotContainer() {
+    //schedule limelight CMD
+
+
+
     // Configure the button bindings
     configureButtonBindings();
 
@@ -132,6 +146,15 @@ public class RobotContainer {
     //m_driverController.a().whileTrue(new testcmd());
     // Configure default commands
 
+    /*
+     * LIMELIGHT
+     */
+
+    limelightSubsystem.sendLimelightValues();
+
+    /*
+     * LIMELIGHT
+     */
 
     m_robotDrive.setDefaultCommand(
         // The left stick controls translation of the robot.
@@ -177,6 +200,11 @@ public class RobotContainer {
      //new JoystickButton(m_driverController, Button.kCircle).whileTrue(new IntakeSetCMD(intakeSubsystem, false));
 
      
+    }
+
+    //LIMELIGHT
+    public Command getLimelightValuesCommand() {
+        return new LimelightCMD(limelightSubsystem);
     }
 
    

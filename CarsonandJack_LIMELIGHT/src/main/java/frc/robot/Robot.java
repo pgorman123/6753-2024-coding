@@ -26,6 +26,8 @@ import frc.robot.subsystems.LimelightSubsystem;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
+  private Command getLimelightValuesCommand;
+
 
   private RobotContainer m_robotContainer;
 
@@ -57,7 +59,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    
+
     CommandScheduler.getInstance().run();
 
 
@@ -153,9 +155,8 @@ public class Robot extends TimedRobot {
     }
 
     //Limelight commands for auton
-    LimelightSubsystem the_limelightSubsystem = new LimelightSubsystem();
-    Command the_sendLimelightValuesCMD = new LimelightCMD(the_limelightSubsystem);
-    the_sendLimelightValuesCMD.schedule();
+    getLimelightValuesCommand = m_robotContainer.getLimelightValuesCommand();
+    getLimelightValuesCommand.schedule();
   }
 
   /** This function is called periodically during autonomous. */
@@ -172,10 +173,9 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
 
-    //Limelight commands for teleop
-    LimelightSubsystem the_limelightSubsystem = new LimelightSubsystem();
-    Command the_sendLimelightValuesCMD = new LimelightCMD(the_limelightSubsystem);
-    the_sendLimelightValuesCMD.schedule();
+    //Limelight commands for auton
+    getLimelightValuesCommand = m_robotContainer.getLimelightValuesCommand();
+    getLimelightValuesCommand.schedule();
   }
 
   /** This function is called periodically during operator control. */
