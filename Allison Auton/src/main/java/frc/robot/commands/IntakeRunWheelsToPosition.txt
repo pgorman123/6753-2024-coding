@@ -1,0 +1,44 @@
+package frc.robot.commands;
+
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.IntakeSubsystem;
+
+public class IntakeRunWheelsToPosition extends CommandBase {
+    
+    private final IntakeSubsystem intakeSubsystem;
+    private final double speed;
+    private double distance; 
+    private double StartLPos;
+
+    public IntakeRunWheelsToPosition(IntakeSubsystem intakeSubsystem, double speed, double requesteddistance) {
+            this.intakeSubsystem = intakeSubsystem;
+            this.speed = speed;
+            addRequirements(intakeSubsystem);
+            this.distance = requesteddistance; 
+    }
+
+    @Override
+    public void initialize() {
+        StartLPos = intakeSubsystem.CurrentLeftPosition();
+    }
+
+    @Override
+    public void execute() {
+        intakeSubsystem.runIntake(speed);
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+       intakeSubsystem.runIntake(0); 
+    }
+
+    @Override
+    public boolean isFinished() {
+        if (StartLPos + Math.abs(distance) <= intakeSubsystem.CurrentLeftPosition()){
+            return true; 
+        }else{
+            return false;
+
+        }
+    }
+}
