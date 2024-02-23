@@ -1,0 +1,28 @@
+{
+  "NetworkTables Settings": {
+    "mode": "Client (NT3)",
+    "serverTeam": "6753"
+  },
+  "Transitory Values": {
+    "open": false
+  },
+  "retained": {
+    "limelight": {
+      "double[]##v_/limelight/botpose": {
+        "open": true
+      },
+      "open": true
+    }
+  },
+  "transitory": {
+    "SmartDashboard": {
+      "Field": {
+        "double[]##v_/SmartDashboard/Field/Robot": {
+          "open": true
+        },
+        "open": true
+      },
+      "open": true
+    }
+  }
+}
