@@ -36,12 +36,8 @@ import frc.robot.commands.TestingIntakeRunWheelsCMD;
 //import frc.robot.commands.IntakeRunWheelsToPosition;
 // import frc.robot.commands.IntakeToggleCMD;
 import frc.robot.subsystems.ArmSubsystem;
-// import frc.robot.commands.IntakeSetCMD;
-import frc.robot.commands.LimelightCMD;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.LimelightSubsystem;
-import frc.robot.subsystems.LimelightHelpers;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -207,18 +203,61 @@ public class RobotContainer {
             .setKinematics(DriveConstants.kDriveKinematics);
 
         Trajectory Trajectory;
+        Trajectory TrajectoryA;
+        Trajectory TrajectoryB;
+        Trajectory TrajectoryC;
+        
 
-        if (AutoConstants.AutoRoute == 1){
-                // An example trajectory to follow. All units in meters.
+        //Reset position if autonroute is -999 only
+        if(AutoConstants.AutoRoute == 10){
+
+             TrajectoryC = TrajectoryGenerator.generateTrajectory(
+                new Pose2d( AutoConstants.AutoX, AutoConstants.AutoY, new Rotation2d(AutoConstants.AutoTheta)),
+        
+                List.of(new Translation2d((AutoConstants.AutoX + AutoConstants.DesiredAutoX)/2, (AutoConstants.AutoY + AutoConstants.DesiredAutoY)/2)),
+      
+                new Pose2d(AutoConstants.DesiredAutoX, AutoConstants.DesiredAutoY, new Rotation2d(AutoConstants.AutoTheta)), config);
+        }
+        if (AutoConstants.AutoRoute == -999) {
+            m_robotDrive.resetEncoders();
+        }
+        if (AutoConstants.AutoRoute == 1) {
+           // private final Field2d m_Field2d = new Field2d();
+
             Trajectory = TrajectoryGenerator.generateTrajectory(
-            // Start at the origin facing the +X direction
-            new Pose2d(0, 0, new Rotation2d(0)),
-            // Pass through these two interior waypoints, making an 's' curve path
-            //List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
-            List.of(new Translation2d(.5, 0), new Translation2d(1, 0)),
-            // End 3 meters straight ahead of where we started, facing forward
-            new Pose2d(5, 0, new Rotation2d(0)), 
+                m_robotDrive.getPose(),
+                List.of(new Translation2d(1.25, 0)),
+                new Pose2d(0, 0, new Rotation2d(0)), 
             config);
+
+             //m_field = new Field2d();
+             //SmartDashboard.putData(m_field);
+
+
+            //return new SequentialCommandGroup(
+                Move(Trajectory);
+            //).andThen(() -> m_robotDrive.setX()).andThen(() -> m_robotDrive.resetEncoders());
+        }
+
+        if (AutoConstants.AutoRoute == 2) {
+                // An example trajectory to foll3ow. All units in meters.
+
+            //Pose2d bOrigin = new Pose2d(2, 0, Rotation2d.fromDegrees(180));
+
+            TrajectoryA = TrajectoryGenerator.generateTrajectory(
+                new Pose2d(0, 0, new Rotation2d(0)),
+        
+                List.of(new Translation2d(.5, 0)),
+      
+                new Pose2d(1, 0, new Rotation2d(0)), config);
+
+            /* TrajectoryB = TrajectoryGenerator.generateTrajectory(
+                new Pose2d(0, 0, new Rotation2d(0)),
+
+                List.of(new Translation2d(0.2, 0)),
+            
+                new Pose2d(0, 0, new Rotation2d(0)), config); */
+    
          /*
           * Adding trial code to make robot move backward
           
@@ -233,26 +272,74 @@ public class RobotContainer {
             config);
 */
             //m_robotDrive.zeroHeading();
-            // Reset odometry to the starting pose of the trajectory.
-            m_robotDrive.resetOdometry(Trajectory.getInitialPose());
-            
-            return Move(Trajectory).andThen(() -> m_robotDrive.drive(0, 0, 0, false));
+            // Reset odometry to the starting pose of the trajectory.;
 
+           return Move(TrajectoryA);
+
+           /*  return new SequentialCommandGroup(
+                ,
+                Move(TrajectoryB)//.andThen(() -> m_robotDrive.drive(0, 0, 0, false));
+            );
+*/
             
-        }else if (AutoConstants.AutoRoute == 2){
-        Trajectory = TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d(3.2)),
-                                                                    List.of(new Translation2d(0.5, 0), new Translation2d(3, 0)),
-                                                                    new Pose2d(AutoConstants.AutoDistance, 0, new Rotation2d(0)),config);
+        } else if (AutoConstants.AutoRoute == 3){
+                // An example trajectory to follow. All units in meters.
+            Trajectory = TrajectoryGenerator.generateTrajectory(
+            // Start at the origin facing the +X direction
+            new Pose2d(1, 0, new Rotation2d(0)),
+            // Pass through these two interior waypoints, making an 's' curve path
+            //List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+            List.of(new Translation2d(1.5, 0)),
+            // End 3 meters straight ahead of where we started, facing forward
+            new Pose2d(2, 0, new Rotation2d(0)), 
+            config);
+         /*
+            
+          * Adding trial code to make robot move backward
+          
+            Trajectory = TrajectoryGenerator.generateTrajectory(
+            // Start at the origin facing the +X direction
+            new Pose2d(0, 0, new Rotation2d(0)),
+            // Pass through these two interior waypoints, making an 's' curve path
+            //List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+            List.of(new Translation2d(.5, 0), new Translation2d(1, 0)),
+            // End 3 meters straight ahead of where we started, facing forward
+            new Pose2d(0, 0, new Rotation2d(0)), 
+            config);
+*/
+            /* TrajectoryA = TrajectoryGenerator.generateTrajectory(
+            // Start at the origin facing the +X direction
+            new Pose2d(2, 0, new Rotation2d(0)),
+            // Pass through these two interior waypoints, making an 's' curve path
+            //List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+            List.of(new Translation2d(2.5, 0)),
+            // End 3 meters straight ahead of where we started, facing forward
+            new Pose2d(3, 0, new Rotation2d(0)), 
+            config); */
+           
+            // Reset odometry to the starting pose of the trajectory.
+            //m_robotDrive.resetOdometry(Trajectory.getInitialPose());
+            
+            return Move(Trajectory);
+             //.andThen(() -> m_robotDrive.drive(0, 0, 0, false));
+
+        } else if (AutoConstants.AutoRoute == 4){
+        Trajectory = TrajectoryGenerator.generateTrajectory(
+            new Pose2d(2, 0, new Rotation2d(0)),
+            List.of(new Translation2d(2.5, 0)),
+            new Pose2d(3, 0, new Rotation2d(0)),config);
+
+           return Move(Trajectory);
             
             //m_robotDrive.zeroHeading();
             // Reset odometry to the starting pose of the trajectory.
-            m_robotDrive.resetOdometry(Trajectory.getInitialPose());
+            //m_robotDrive.resetOdometry(Trajectory.getInitialPose());
             
-            return new SequentialCommandGroup(new AutoArmSetCMD(theArmSystem, .22, .224), new IntakeRTP(theIntakeSubsystem, 1, 5 ),
-                                             Move(Trajectory));
+            //return new SequentialCommandGroup(new AutoArmSetCMD(theArmSystem, .22, .224), new IntakeRTP(theIntakeSubsystem, 1, 5 ),
+                                             //Move(Trajectory));
                                                         
 
-        }else if (AutoConstants.AutoRoute == 3){
+        }else if (AutoConstants.AutoRoute == 64){
             Trajectory = TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d(3.2)),
                                                                     List.of(new Translation2d(0.75, 0), new Translation2d(1.5, 0)),
                                                                     new Pose2d(1.95, 0, new Rotation2d(3.2)),config);
@@ -388,7 +475,53 @@ public class RobotContainer {
                                                 new ParallelCommandGroup(new AutoArmSetCMD(theArmSystem, 0, 0), Move(Trajectory)), 
                                                 new AutoBalance(m_robotDrive) ).withTimeout(14.9).andThen(m_robotDrive::setX);
 
-        }else{
+        } else if (AutoConstants.AutoRoute == 210){
+                // An example trajectory to follow. All units in meters.
+            Trajectory traj210_1 = TrajectoryGenerator.generateTrajectory(
+            // Start at the origin facing the +X direction
+            new Pose2d(0, 0, new Rotation2d(0)),
+            // Pass through these two interior waypoints, making an 's' curve path
+            //List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+            List.of(new Translation2d(1, 0), new Translation2d(2.5, -0.75), new Translation2d(4, -0.75)),
+            // End 3 meters straight ahead of where we started, facing forward
+            new Pose2d(4.5, 0, new Rotation2d(0)), 
+            config);
+
+
+
+            Trajectory traj210_2 = TrajectoryGenerator.generateTrajectory(
+
+            new Pose2d(4.5, 0, new Rotation2d(0)),
+
+            List.of(new Translation2d(4 , 0.75), new Translation2d(2.5, 0.75), new Translation2d (1, 0)),
+            new Pose2d(0, 0, new Rotation2d(0)),
+            config);
+         /*
+          * Adding trial code to make robot move backward
+          
+            Trajectory = TrajectoryGenerator.generateTrajectory(
+            // Start at the origin facing the +X direction
+            new Pose2d(0, 0, new Rotation2d(0)),
+            // Pass through these two interior waypoints, making an 's' curve path
+            //List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+            List.of(new Translation2d(.5, 0), new Translation2d(1, 0)),
+            // End 3 meters straight ahead of where we started, facing forward
+            new Pose2d(0, 0, new Rotation2d(0)), 
+            config);
+*/
+            //m_robotDrive.zeroHeading();
+            // Reset odometry to the starting pose of the trajectory.
+            m_robotDrive.resetOdometry(traj210_1.getInitialPose());
+            
+            return new SequentialCommandGroup(
+                Move(traj210_1),
+                Move(traj210_2)
+            );
+
+
+            
+        } 
+else {
                         //This Trajectory is just a place holder that moves forward but only barely
             Trajectory = TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d(0)),
                                                                     List.of(new Translation2d(0.01, 0), new Translation2d(0.01, 0)),
@@ -401,6 +534,7 @@ public class RobotContainer {
             return Move(Trajectory).andThen(() -> m_robotDrive.drive(0, 0, 0, false));
 
         }
+        
        
 
         

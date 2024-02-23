@@ -10,6 +10,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -101,12 +102,12 @@ public static final double DriverInputRedution = .50;
     // SPARK MAX CAN IDs
     
     public static final int kFrontLeftDrivingCanId = 5;
-    public static final int kRearLeftDrivingCanId = 2;
+    public static final int kRearLeftDrivingCanId = 1;
     public static final int kFrontRightDrivingCanId = 4;
     public static final int kRearRightDrivingCanId = 7;
 
     public static final int kFrontLeftTurningCanId = 6;
-    public static final int kRearLeftTurningCanId = 1;
+    public static final int kRearLeftTurningCanId = 2;
     public static final int kFrontRightTurningCanId = 3;
     public static final int kRearRightTurningCanId = 8;
     
@@ -166,7 +167,7 @@ public static final double DriverInputRedution = .50;
 
 
   public static final class AutoConstants {
-    public static final double kMaxSpeedMetersPerSecond = 2.25;
+    public static final double kMaxSpeedMetersPerSecond = 1;
     public static final double kMaxAccelerationMetersPerSecondSquared = 1;
     public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
     public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
@@ -181,6 +182,15 @@ public static final double DriverInputRedution = .50;
 
     public static double AutoRoute;
     public static double AutoDistance;
+
+    public static double AutoX;
+    public static double AutoY;
+    public static double AutoTheta;
+     
+    public static double DesiredAutoX;
+    public static double DesiredAutoY;
+    public static double DesiredAutoTheta;
+
   }
 
   public static final class NeoMotorConstants {
@@ -198,6 +208,11 @@ public static final double DriverInputRedution = .50;
 
     public static double IN;
     public static double OUT;
+  }
+
+  //field map constants
+  public static final class FieldConstants {
+    public final static Field2d m_field = new Field2d();
   }
 
 }

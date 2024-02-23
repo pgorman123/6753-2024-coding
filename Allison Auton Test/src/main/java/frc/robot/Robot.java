@@ -4,23 +4,20 @@
 
 package frc.robot;
 
-import java.lang.reflect.Array;
-
 import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.math.proto.Trajectory;
+import edu.wpi.first.networktables.DoubleArraySubscriber;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
+//
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+//
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.IntakeConstants;
-import frc.robot.RobotContainer;
-//import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj.SPI;
 import frc.robot.subsystems.LimelightHelpers;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
 
 
 /**
@@ -34,6 +31,8 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
 
+  DoubleArraySubscriber botPoseRaw;
+  DoubleArraySubscriber Robot;
     //AHRS ahrs;
   
 
@@ -46,7 +45,12 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    
+    NetworkTable LLtable = NetworkTableInstance.getDefault().getTable("limelight");
+    botPoseRaw = LLtable.getDoubleArrayTopic("botpose").subscribe(new double[] {});
 
+    // Do this in either robot or subsystem init
+    SmartDashboard.putData("Field", Constants.FieldConstants.m_field);
     //ahrs = new AHRS(SPI.Port.kMXP);
 
     CameraServer.startAutomaticCapture();
@@ -65,12 +69,55 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
+
+    //final Field2d m_field = new Field2d();
+    //SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(null, null, null, null);
+
+    
+   
+   //m_field.setRobotPose(m_odometry.getPoseMeters());
+
+
+
     CommandScheduler.getInstance().run();
     SmartDashboard.setDefaultNumber("Auto Path", 0);
+    SmartDashboard.setDefaultNumber("AutoX", 0);
+    SmartDashboard.setDefaultNumber("AutoY", 0);
+    SmartDashboard.setDefaultNumber("AutoTheta", 0);
+    SmartDashboard.setDefaultNumber("Desired AutoX", 0);
+    SmartDashboard.setDefaultNumber("Desired AutoY", 0);
+    SmartDashboard.setDefaultNumber("Desired AutoTheta", 0);
+
     //LimelightHelpers.LimelightResults.getBotpose();
+
+
+
+    //SmartDashboard.putData("Field", m_field);
+
+    double[] array1 = {12, 13, 14, 15};
+    SmartDashboard.putNumber("array1[0]", array1[0]);
+    SmartDashboard.putNumber("array1[2]", array1[2]);
+    SmartDashboard.putNumber("array1[1]", array1[1]);
+    SmartDashboard.putNumber("array1[3]", array1[3]);
+
+    double[] botPose = botPoseRaw.get();
+
+    //SmartDashboard.putNumber("Botpose [0]", botPose[0]);
+    //SmartDashboard.putNumber("Botpose [1]", botPose[1]);
+    //SmartDashboard.putNumber("Botpose [5]", botPose[5]);
+    //SmartDashboard.putNumber("Botpose [6]", botPose[6]);
+
+
+
+     //limelight values from Roborio
     double[] botpose = LimelightHelpers.getBotPose("");
     double tx = LimelightHelpers.getTX("");
     double ty = LimelightHelpers.getTY("");
+
+    
+    
+
+
 
     //Array Jeff = 
 
@@ -107,7 +154,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Arm3 Velocity",m_robotContainer.theArmSystem.Arm3Velocity() );
 
     SmartDashboard.putNumber("Intake Position",m_robotContainer.theIntakeSubsystem.CurrentIntakePosition());
-    SmartDashboard.putNumber("Botpose",botpose[2]);
+    //SmartDashboard.putNumber("Botpose",botpose[2]);
     SmartDashboard.putNumber("tx", tx);
     SmartDashboard.putNumber("ty", ty);
 
@@ -160,8 +207,14 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
 
     AutoConstants.AutoRoute = SmartDashboard.getNumber("Auto Path",1);
+    AutoConstants.AutoX = SmartDashboard.getNumber("AutoX", 0);
+    AutoConstants.AutoY = SmartDashboard.getNumber("AutoY", 0);
+    AutoConstants.AutoTheta = SmartDashboard.getNumber("AutoTheta", 0);
     AutoConstants.AutoDistance = SmartDashboard.getNumber("Auto Distance(Testing)",0);
 
+    AutoConstants.DesiredAutoX = SmartDashboard.getNumber("Desired AutoX",0);
+    AutoConstants.DesiredAutoY = SmartDashboard.getNumber("Desired AutoY",0);
+    AutoConstants.DesiredAutoTheta = SmartDashboard.getNumber("Desired AutoTheta",0);
 
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
