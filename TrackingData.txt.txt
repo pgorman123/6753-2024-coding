@@ -1,0 +1,29 @@
+X1 - Translation from POINT Z ON April tags PAPER	x: -7'4 1/16" y: -3'4 11/16"
+X2 - Translation from POINT Z on April tags PAPER	x: -6'5 3/4" y: -5'3 7/8"
+X3 - Translation from POINT Z on April tags PAPER	x: 5' 3/8" y: 6'6 1/4"
+
+Track 3,4
+X1 - BotPose 		TX: 5.87, TY: -0.02, RZ: 26.00
+X1 - BotPoseBlue	TX: 14.13, TY: 3.96 RZ: 26.00
+X1 - BotPoseRed		TX: 2.40, TY: 4.08 RZ: -153.00
+
+X2 - BotPose 		TX: 6.18, TY: -0.75, RZ: 44.60
+X2 - BotPoseBlue	TX: 14.5, TY: 3.26 RZ: 44.60
+X2 - BotPoseRed		TX: 2.03, TY: 4.75 RZ: -135.00
+
+X3 - BotPose 		TX: 6.76, TY: -1.15, RZ: 56.50
+X3 - BotPoseBlue	TX: 15.03, TY: 2.86 RZ: 56.50
+X3 - BotPoseRed		TX: 1.51, TY: 5.16 RZ: -125.50
+
+Track 7,8
+X1 - BotPose 		TX: -5.75, TY: 2.32, RZ: -157.80
+X1 - BotPoseBlue	TX: 2.52, TY: 6.33 RZ: -157.80
+X1 - BotPoseRed		TX: 14.00, TY: 1.71 RZ: 22.10
+
+X2 - BotPose 		TX: -6.12, TY: 3.06, RZ: -139.50
+X2 - BotPoseBlue	TX: 2.15, TY: 7.07 RZ: -139.50
+X2 - BotPoseRed		TX: 14.39, TY: 0.95 RZ: 41.00
+
+X3 - BotPose 		TX: -6.66, TY: 3.47, RZ: -124.00
+X3 - BotPoseBlue	TX: 1.62, TY: 7.47 RZ: -123.10
+X3 - BotPoseRed		TX: 14.92, TY: 0.54 RZ: 56.80
