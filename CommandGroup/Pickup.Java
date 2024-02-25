@@ -1,7 +1,0 @@
-/*
-set intake prallel to the floor
-
-run intake until sensor sees ring
-
-bring in intake
-*/
