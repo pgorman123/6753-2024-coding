@@ -1,0 +1,11 @@
+set shooter wheels to .07 speed
+
+outtake note into shooter
+
+rotate shooter to ampshot position
+
+wait 1 second 
+
+stop shooter wheels 
+
+rotate shooter back to 0
