@@ -2,16 +2,16 @@ aim
 
 shoot
 
-drive forward
+drive forward to (2.8956,0)
 
 pickup
 
 shoot
 
-drive forward
+drive forward to (8.29564,0.4572)
 
 pickup rightmost ring
 
-drive back
+drive back to (2.8956,0)
 
 shoot
