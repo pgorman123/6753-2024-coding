@@ -1,0 +1,55 @@
+        //Every Line Spacing is a ring
+
+        }else if (AutoConstants.AutoRoute == 1001){/*Blue Auto 1 2024 */
+            Trajectory = TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d(0)),
+                            List.of(new Translation2d(2.8956,0), 
+                            
+                            new Translation2d(8.29564, 0.752856),
+
+                            new Translation2d(2.8956,0)),
+                            new Pose2d(2.8956, 0, new Rotation2d(0)),config);
+        
+        
+        }else if (AutoConstants.AutoRoute == 1002){/*Blue Auto 2 2024 */
+            Trajectory = TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d(0)),
+                            List.of(new Translation2d(2.154682, 0),
+
+                                    new Translation2d(2.154682, 1.4478)),
+
+                                    new Pose2d(2.154682, 1.4478, new Rotation2d(0)),config);
+
+        
+        }else if (AutoConstants.AutoRoute == 1003){/*Blue Auto 3 2024 */
+            Trajectory = TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d(0)),
+                            List.of(new Translation2d(8.29564, 0), new Translation2d(5.75564, 0),
+
+                                    new Translation2d(8.2964, 1.676),  new Translation2d(5.75564, 0)),
+                                    new Pose2d(5.75564, 0, new Rotation2d(0)),config);
+
+
+        }else if (AutoConstants.AutoRoute == 1004){/*Red Auto 1 2024 */
+            Trajectory = TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d(0)),
+                            List.of(new Translation2d(8.28041016,0), new Translation2d(4.572,0),
+
+                                    new Translation2d(4.572,0)),
+                                    new Pose2d(4.572, 0, new Rotation2d(0)),config);
+
+        
+        
+        }else if (AutoConstants.AutoRoute == 1005){/*Red Auto 2 2024 */
+            Trajectory = TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d(0)),
+                            List.of(new Translation2d(2.8956, 0), 
+                            
+                            new Translation2d(2.8956, 1.4478)),
+                            new Pose2d(2.8956, 1.4478, new Rotation2d(0)),config);
+
+                    
+        
+        }else if (AutoConstants.AutoRoute == 1006){/*Red Auto 3 2024 */
+            Trajectory = TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d(0)),
+                            List.of(new Translation2d(2.8956,0), 
+                            
+                            new Translation2d(8.29564,0.4572),
+
+                            new Translation2d(2.8956,0)),
+                            new Pose2d(2.8956, 0, new Rotation2d(0)),config);
