@@ -1,0 +1,55 @@
+package frc.robot.commands;
+
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.ShooterArmSubsystem;
+
+public class AutoShooterArmSetCMD extends Command {
+
+    private ShooterArmSubsystem shooterarmSubsystem;   
+    private double DesiredShooterArmPosition;
+    
+
+    public AutoShooterArmSetCMD(ShooterArmSubsystem shooterarmSubsystem, double ShooterArmPosition){
+        this.DesiredShooterArmPosition = ShooterArmPosition;
+
+
+        this.shooterarmSubsystem = shooterarmSubsystem;
+        addRequirements(shooterarmSubsystem);
+    }
+
+    @Override
+    public void initialize() {
+    }
+
+    @Override
+    public void execute() {
+        shooterarmSubsystem.setShooterArmPosition(DesiredShooterArmPosition);
+    
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+
+    }
+
+    @Override
+    public boolean isFinished() {
+
+     //We commented this out 2/24/24 to avoid math confusion in certain positions. 
+
+        /*boolean ShooterArmInPosition = false;
+
+        if (Math.abs(shooterarmSubsystem.CurrentShooterArmAltPos() - DesiredShooterArmPosition) <= .01){ShooterArmInPosition = true;}
+       
+        
+
+        if(ShooterArmInPosition && IntakeArmInPosition){
+            return true;
+        }else{
+            */return false;
+        
+    }
+
+
+}
+

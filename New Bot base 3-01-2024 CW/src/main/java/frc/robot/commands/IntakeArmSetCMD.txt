@@ -1,0 +1,60 @@
+package frc.robot.commands;
+
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.IntakeArmSubsystem;
+
+public class IntakeArmSetCMD extends Command {
+
+    private IntakeArmSubsystem intakearmSubsystem;
+    private double DesiredIntakeArmPosition;
+
+    public IntakeArmSetCMD(IntakeArmSubsystem intakearmSubsystem, double IntakeArmPosition) {
+        this.DesiredIntakeArmPosition = IntakeArmPosition;
+
+        this.intakearmSubsystem = intakearmSubsystem;
+        addRequirements(intakearmSubsystem);
+    }
+//not sure what this does. It may be messed up. Investigation is necessary. 
+
+//We commented this out to test intake arm  AB
+    /*public IntakeArmSetCMD(IntakeArmSubsystem theIntakeArmSystem, int i, int j, Translation2d translation2d, Rotation2d rotation2d,
+            Translation2d translation2d2, Rotation2d rotation2d2, IntakeArmSetCMD intakearmSetCMD,
+            IntakeRunWheelsCMD intakeRunWheelsCMD, IntakeRunWheelsCMD intakeRunWheelsCMD2, IntakeArmSetCMD intakearmSetCMD2,
+            Translation2d translation2d3, Rotation2d rotation2d3, TrajectoryConfig config) {
+    }
+*/
+    @Override
+    public void initialize() {
+    }
+
+    @Override
+    public void execute() {
+        //-0.2
+        /*
+        if (DesiredIntakeArmPosition > frc.robot.Constants.IntakeConstants.IntakeArmLowerLimit) {
+            DesiredIntakeArmPosition = frc.robot.Constants.IntakeConstants.IntakeArmLowerLimit;
+            }
+        else if (DesiredIntakeArmPosition < frc.robot.Constants.IntakeConstants.IntakeArmUpperLimit) {
+            DesiredIntakeArmPosition = frc.robot.Constants.IntakeConstants.IntakeArmUpperLimit;
+        }
+        */
+
+        intakearmSubsystem.setIntakeArmPosition(DesiredIntakeArmPosition);
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        
+    }
+
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
+
+
+}
+
