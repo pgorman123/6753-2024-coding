@@ -540,7 +540,19 @@ public class RobotContainer {
                             List.of(  
                                 new Translation2d(5, .4)
                             ),
-                                    new Pose2d(2.9, .0, new Rotation2d(0)),config);
+                                    new Pose2d(2.9, 0, new Rotation2d(0)),config);
+            TrajectoryD = TrajectoryGenerator.generateTrajectory(new Pose2d(2.9, 0, new Rotation2d(0)),
+                            List.of(  
+                                new Translation2d(5, -.4)
+                            ),
+                                    new Pose2d(6.3, -.7, new Rotation2d(0)),config);
+
+             TrajectoryE = TrajectoryGenerator.generateTrajectory(new Pose2d(6.3, -.7, new Rotation2d(0)),
+                            List.of(  
+                                new Translation2d(5, -.4)
+                            ),
+                                    new Pose2d(2.9, 0, new Rotation2d(0)),config);
+
 
                     return new SequentialCommandGroup(
                     
@@ -548,7 +560,11 @@ public class RobotContainer {
                         new IntakeRunWheelsCMD(theIntakeSubsystem, 1),
                          Move(TrajectoryB),
                         new IntakeRunWheelsCMD(theIntakeSubsystem, 1),
-                         Move(TrajectoryB)
+                         Move(TrajectoryC),
+                         Move(TrajectoryD),
+                        new IntakeRunWheelsCMD(theIntakeSubsystem, 1),
+                         Move(TrajectoryE)
+                        
 
                 );
                     
@@ -623,13 +639,27 @@ public class RobotContainer {
                                     new Translation2d(5.7, -0.9)
                             ),
                                 new Pose2d(5, 0, new Rotation2d(0)),config);
+             TrajectoryE = TrajectoryGenerator.generateTrajectory(new Pose2d(5,0, new Rotation2d(0)),
+                            List.of(  
+                                    new Translation2d(5.7, 1)
+                            ),
+                                new Pose2d(6.3, 2, new Rotation2d(0)),config);
+
+            TrajectoryF = TrajectoryGenerator.generateTrajectory(new Pose2d(6.3,2, new Rotation2d(0)),
+                            List.of(  
+                                    new Translation2d(5.7, 1)
+                            ),
+                                new Pose2d(5, 0, new Rotation2d(0)),config);
+
 
                 return new SequentialCommandGroup(
                     
                         Move(TrajectoryA),
                          Move(TrajectoryB),
                           Move(TrajectoryC),
-                           Move(TrajectoryD)
+                           Move(TrajectoryD),
+                            Move(TrajectoryE),
+                              Move(TrajectoryF)
 
                 );
         
