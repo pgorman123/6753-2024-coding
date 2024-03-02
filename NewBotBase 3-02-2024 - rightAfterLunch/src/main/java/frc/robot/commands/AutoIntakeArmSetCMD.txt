@@ -1,0 +1,52 @@
+package frc.robot.commands;
+
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.IntakeArmSubsystem;
+
+public class AutoIntakeArmSetCMD extends Command {
+
+    private IntakeArmSubsystem intakearmSubsystem;   
+    private double DesiredIntakeArmPosition;
+
+    public AutoIntakeArmSetCMD(IntakeArmSubsystem intakearmSubsystem, double IntakeArmPosition ){
+        this.DesiredIntakeArmPosition = IntakeArmPosition;
+
+        this.intakearmSubsystem = intakearmSubsystem;
+        addRequirements(intakearmSubsystem);
+    }
+
+    @Override
+    public void initialize() {
+    }
+
+    @Override
+    public void execute() {
+        intakearmSubsystem.setIntakeArmPosition(DesiredIntakeArmPosition);
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+
+    }
+
+    @Override
+    public boolean isFinished() {
+
+    //We commented this out 2/24/24 to avoid math confusion in certain positions. 
+
+       /*  boolean IntakeArmInPosition = false;
+
+        
+        if (Math.abs(intakearmSubsystem.CurrentIntakeArmAltPos() - DesiredIntakeArmPosition) <= .01){IntakeArmInPosition = true;}
+        
+
+        if(IntakeArmInPosition){
+            return true;
+        }else{
+            */return false;
+        
+    }
+
+
+}
+
