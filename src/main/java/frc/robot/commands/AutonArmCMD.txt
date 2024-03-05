@@ -1,0 +1,48 @@
+package frc.robot.commands;
+
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.ArmSubsystem;
+
+public class AutonArmCMD extends Command {
+
+    private ArmSubsystem armSubsystem;   
+    private double DesiredShooterArmPosition;
+    private double DesiredIntakeArmPosition;
+
+    public AutonArmCMD(ArmSubsystem armSubsystem, double ShooterArmPosition, double IntakeArmPosition ){
+        this.DesiredShooterArmPosition = ShooterArmPosition;
+        this.DesiredIntakeArmPosition = IntakeArmPosition;
+
+        this.armSubsystem = armSubsystem;
+        addRequirements(armSubsystem);
+    }
+
+    @Override
+    public void initialize() {
+    }
+
+    @Override
+    public void execute() {
+        armSubsystem.setShooterArmPosition(DesiredShooterArmPosition);
+        armSubsystem.setIntakeArmPosition(DesiredIntakeArmPosition);
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        //armSubsystem.setShooterArmPosition(0);
+        //armSubsystem.setIntakeArmPosition(0);
+    }
+
+    @Override
+    public boolean isFinished() {
+        if(Math.abs(DesiredShooterArmPosition - armSubsystem.CurrentShooterArmAltPos()) < .01 && Math.abs(DesiredIntakeArmPosition - armSubsystem.CurrentIntakeArmAltPos()) < .01) {
+            return true;
+        } else {
+            return false;
+        }
+        
+    }
+
+
+}
+
