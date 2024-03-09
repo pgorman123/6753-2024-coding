@@ -7,7 +7,6 @@ package frc.robot;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -58,18 +57,14 @@ public class RobotContainer {
 
     final DriveSubsystem m_robotDrive = new DriveSubsystem();
 
-    DigitalInput input = new DigitalInput(0);
-
-    boolean state = input.get();
-
-    //SmartDashboard.putBoolean("State", state);
-
-   // boolean state = false;
-
     XboxController m_driverController1 = new XboxController(2);
     XboxController m_driverController2 = new XboxController(OperatorConstants.kDriverController2Port);
 
     Joystick theJoystick = new Joystick(OperatorConstants.kDriverController1Port);
+
+     DigitalInput input = new DigitalInput(0);
+
+    boolean state = true;
 
     //public final IntakeArmSubsystem theIntakeArmSystem = new IntakeArmSubsystem();
    // public final ShooterArmSubsystem theShooterArmSystem = new ShooterArmSubsystem();
@@ -89,11 +84,14 @@ public class RobotContainer {
         configureButtonBindings();
 //The buttons are on the joystick. Trigger is "IN", side thumb button is "OUT". This has been tested
 
-        //RUN INTAKE WHEELS
-        new JoystickButton(theJoystick, 9)
+ //---------------------------------------------------------------------------------------------------
+
+        /*  new JoystickButton(theJoystick, 9)
             .whileTrue(new TestingIntakeRunWheelsCMD(theIntakeSubsystem, "IN"));
         new JoystickButton(theJoystick, 8)
-            .whileTrue(new TestingIntakeRunWheelsCMD(theIntakeSubsystem, "OUT"));
+            .whileTrue(new TestingIntakeRunWheelsCMD(theIntakeSubsystem, "OUT")); */
+
+ //---------------------------------------------------------------------------------------------------
 
 
         //RUN SHOOTER WHEELS
@@ -106,15 +104,22 @@ public class RobotContainer {
 // This needs to be adjusted!! 
 
         //These buttons are to move the Intake Arm to a desired position, positive is down (towards floor)
-        new JoystickButton(theJoystick, 11) //I put this on the joystick for the purpose of testing
+
+         //---------------------------------------------------------------------------------------------------
+
+        new JoystickButton(theJoystick, 2) //I put this on the joystick for the purpose of testing
             .whileTrue(new NewIntakeArmSetCMD(theNewIntakeArmSubsystem, 0.011));
-         //test position
-            /* .whileTrue(
-                if IntakeArmSetPosition is higher than Ground
-                         new IntakeArmSetCMD(theIntakeArmSystem, = -0.25)); //test position
-                then new IntakeArmSetCMD(theIntakeArmSystem, = )*/
-        new JoystickButton(theJoystick, 12) //I put this on the joystick for the purpose of testing
-            .whileTrue(new NewIntakeArmSetCMD(theNewIntakeArmSubsystem, .45)); //test position
+
+         //---------------------------------------------------------------------------------------------------
+
+        
+
+        //---------------------------------------------------------------------------------------------------
+
+       /*  new JoystickButton(theJoystick, 12) //I put this on the joystick for the purpose of testing
+            .whileTrue(new NewIntakeArmSetCMD(theNewIntakeArmSubsystem, .45)); //test position */
+
+        //---------------------------------------------------------------------------------------------------
 
 //This needs to be adjusted!!
 
@@ -134,7 +139,7 @@ public class RobotContainer {
         //These buttons are to move ShooterTip to desired position
         //The two postions are shoot and place in Amp
        new JoystickButton(theJoystick, 3) //I put this on the joystick for the purpose of testing
-                .whileTrue(new ShooterTipCMD(theShooterTipSubsystem, .14)); //random numbers. Needs adjustment
+                .whileTrue(new ShooterTipCMD(theShooterTipSubsystem, .22)); //random numbers. Needs adjustment
 
         new JoystickButton(theJoystick, 4) //I put this on the joystick for the purpose of testing
                 .whileTrue(new ShooterTipCMD(theShooterTipSubsystem, .7)); //random numbers. Needs adjustment
@@ -145,138 +150,127 @@ public class RobotContainer {
 
 //Climber up on driverstation buttons
         new JoystickButton(m_driverController2,3)
-                .whileTrue(new ClimberCMD(theClimberSubsystem, 4,4));
+                .whileTrue(new SequentialCommandGroup(
+
+                new ShooterTipCMD(theShooterTipSubsystem, .7).withTimeout(1),
+                new ClimberCMD(theClimberSubsystem, 5,5)
+
+                ));
 
 //Climber down on driverstation buttons
          new JoystickButton(m_driverController2,6)
-                .whileTrue(new ClimberCMD(theClimberSubsystem, 0.1,0.1));
+                .whileTrue(new ClimberCMD(theClimberSubsystem, 0.01,0.01));
 
-                new JoystickButton(theJoystick, 2) //I put this on the joystick for the purpose of testing
+                new JoystickButton(m_driverController2, 8) //I put this on the joystick for the purpose of testing
                 .whileTrue(new SequentialCommandGroup(
 
-                        new ShooterRunWheelsCMD(theShooterSubsystem, -.8).withTimeout(.5),
-                        new IntakeRunWheelsCMD(theIntakeSubsystem, .5).withTimeout(.5),
+                        new ShooterTipCMD(theShooterTipSubsystem, .22).withTimeout(.25),
+                        new ShooterRunWheelsCMD(theShooterSubsystem, -.4).withTimeout(.2),
+
+                        new ParallelCommandGroup(
+
+                        new ShooterRunWheelsCMD(theShooterSubsystem, -.1).withTimeout(.15),
+                        new IntakeRunWheelsCMD(theIntakeSubsystem, .8).withTimeout(.3)
+
+                        ),
+
                         new ShooterTipCMD(theShooterTipSubsystem, .7).withTimeout(1),
                         new ShooterRunWheelsCMD(theShooterSubsystem, -.5).withTimeout(.5),
                         new ShooterTipCMD(theShooterTipSubsystem, .1)
 
                 )); 
 
-                new JoystickButton(theJoystick, 5) //I put this on the joystick for the purpose of testing
+
+                /*new JoystickButton(theJoystick, 5) //I put this on the joystick for the purpose of testing
                 .whileTrue( new SequentialCommandGroup(
 
                         new NewIntakeArmSetCMD(theNewIntakeArmSubsystem, .45).withTimeout(1),
                         new TestingIntakeRunWheelsCMD(theIntakeSubsystem, "OUT").until(()-> state), //maybe works? boolean supplier is odd
                         new NewIntakeArmSetCMD(theNewIntakeArmSubsystem, 0.01)
 
-                )); 
+                )); */
 
                  new JoystickButton(theJoystick, 1) //I put this on the joystick for the purpose of testing
+                .onTrue( new SequentialCommandGroup(
+
+                        new ClimberCMD(theClimberSubsystem, .5,.5).withTimeout(.25),
+                        
+                        new ParallelCommandGroup(
+
+                        new NewIntakeArmSetCMD(theNewIntakeArmSubsystem, .45),
+                        new IntakeRunWheelsCMD(theIntakeSubsystem, -0.5)
+                         
+                       
+
+                ))); 
+
+                new JoystickButton(theJoystick, 1) //I put this on the joystick for the purpose of testing
+                .onFalse( new SequentialCommandGroup(
+                      
+                        new IntakeRunWheelsCMD(theIntakeSubsystem, 0 ).withTimeout(.25),
+                        new NewIntakeArmSetCMD(theNewIntakeArmSubsystem, 0.01).withTimeout(1),
+                        new IntakeRunWheelsCMD(theIntakeSubsystem, -0.1 ).withTimeout(.5),
+                        new IntakeRunWheelsCMD(theIntakeSubsystem, 0.1 ).withTimeout(.5),
+                        new IntakeRunWheelsCMD(theIntakeSubsystem, -0.1 ).withTimeout(.25)
+                        
+
+                ));
+                
+
+                /*  new JoystickButton(m_driverController2, 1) //I put this on the joystick for the purpose of testing
                 .onTrue(
 
                         new ShooterRunWheelsCMD(theShooterSubsystem, -.7).withTimeout(4)
                        
 
-                ); 
+                ); */
 
-               new JoystickButton(theJoystick, 1) //I put this on the joystick for the purpose of testing
+               /*new JoystickButton(m_driverController2, 1) //I put this on the joystick for the purpose of testing
                 .onFalse(
 
                         new TestingIntakeRunWheelsCMD(theIntakeSubsystem, "IN").withTimeout(.25)
                        
 
-                ); 
+                ); */
 
+                 new JoystickButton(m_driverController2, 7) //I put this on the joystick for the purpose of testing
+                .whileTrue( new SequentialCommandGroup(
 
+                        new ShooterTipCMD(theShooterTipSubsystem, .22).withTimeout(.25),
+                        new ShooterRunWheelsCMD(theShooterSubsystem, -.9).withTimeout(1),
 
-//LeftClimberUP 
-      //   new JoystickButton(theJoystick,6)
-         //       .whileTrue(new ClimberLeftCMDtest(theClimberSubsystem,5 ));
+                        new ParallelCommandGroup(
 
-//LeftClimberDown 
-       //  new JoystickButton(theJoystick,5)
-            //    .whileTrue(new ClimberLeftCMDtest(theClimberSubsystem,0.1 ));
+                                new TestingIntakeRunWheelsCMD(theIntakeSubsystem, "IN"),
+                                new ShooterRunWheelsCMD(theShooterSubsystem, -.9)
 
-                
-//New Intergrated Scoring Button. This is commented out bc we do not know how to put 2 commands on 1 button AB
+                        ))); 
 
-//Shooter
-      //  new JoystickButton(theJoystick, 5). //I put this on the joystick for the purpose of testing
+                new JoystickButton(m_driverController2, 1) //I put this on the joystick for the purpose of testing
+                .whileTrue( new IntakeRunWheelsCMD(theIntakeSubsystem, 0.1 ));
+
+                new JoystickButton(m_driverController2, 4) //I put this on the joystick for the purpose of testing
+                .whileTrue( new IntakeRunWheelsCMD(theIntakeSubsystem, -0.1 ));
+
+                new JoystickButton(m_driverController2, 2) //I put this on the joystick for the purpose of testing
+                .whileTrue( new SequentialCommandGroup(
+
+                                new IntakeRunWheelsCMD(theIntakeSubsystem, 0.1 ).withTimeout(.5),
+                          new IntakeRunWheelsCMD(theIntakeSubsystem, -0.1 ).withTimeout(.4)
+
+                ));
+
         
-             //  .whileTrue(new ShooterTipCMD(theShooterTipSubsystem, .26));
-            //    .whileTrue(new TestingShooterRunWheelsCMD(theShooterSubsystem, "IN")); 
-        
-                
-//Amp
-       // new JoystickButton(theJoystick, 6) //I put this on the joystick for the purpose of testing
-              //  .whileTrue(new ShooterTipCMD(theShooterTipSubsystem, .5)); //Likely we need this number at one, but we set it lower for testing AB
-
-                
-
-
-
-        // - Arm positions - // 2023 Code Buttons 
-
-      /*   // Return to Zero
-        new JoystickButton(m_driverController2, OperatorConstants.ArmReset)
-                .whileTrue(new ArmSetCMD(theArmSystem, 0, 0));
-        // Pick up Cube and Place Ground
-        new JoystickButton(m_driverController2, OperatorConstants.CubePickup)
-                .whileTrue(new ArmSetCMD(theArmSystem, .05, 0.27));
-        // Low Cube Place
-        new JoystickButton(m_driverController2, OperatorConstants.CubePlaceLow)
-                .whileTrue(new ArmSetCMD(theArmSystem, .019, 0.017));
-        // Medium Cube Place
-        new JoystickButton(m_driverController2, OperatorConstants.CubePlaceMid)
-                .whileTrue(new ArmSetCMD(theArmSystem, .135, 0.064));
-        // High Cube Place
-        new JoystickButton(m_driverController2, OperatorConstants.CubePlaceHigh)
-                .whileTrue(new ArmSetCMD(theArmSystem, .241, .224));
-        // High Cone place
-        new JoystickButton(m_driverController2, OperatorConstants.ConePlaceHigh)
-                .whileTrue(new ArmSetCMD(theArmSystem, .270, .454));
-        // Medium Cone Place
-        new JoystickButton(m_driverController2, OperatorConstants.ConePlaceMid)
-                .whileTrue(new ArmSetCMD(theArmSystem, .302, .608));
-        // Ground Cone Place
-        new JoystickButton(m_driverController2, OperatorConstants.ConePlaceLow)
-                .whileTrue(new ArmSetCMD(theArmSystem, 0, 0.135));
-        // Human Player Station
-        new JoystickButton(m_driverController2, OperatorConstants.ConePickup)
-                .whileTrue(new ArmSetCMD(theArmSystem, 0.00, .083));
-
-        // ----------
-    */
-
-
-    // 2023 Intake run commands, on Joystick
-    /*
-        new JoystickButton(theJoystick, 1)
-                .whileTrue(new TestingIntakeRunWheelsCMD(theIntakeSubsystem, "IN"));
-        new JoystickButton(theJoystick, 2)
-                .whileTrue(new TestingIntakeRunWheelsCMD(theIntakeSubsystem, "OUT"));
-
-        new JoystickButton(theJoystick, 11)
-                .whileTrue(new IntakeRunWheelsCMD(theIntakeSubsystem, -.75));
-
-        new JoystickButton(theJoystick, 9)
-                .whileTrue(new IntakeRunWheelsCMD(theIntakeSubsystem, .75));
-
-        new JoystickButton(theJoystick, 10)
-                .whileTrue(new IntakeRunWheelsCMD(theIntakeSubsystem, -.6));
-
-        new JoystickButton(theJoystick, 12)
-                .whileTrue(new IntakeRunWheelsCMD(theIntakeSubsystem, .75));
-        // ------------------------------------------------------------------------------------------------------------
-*/
         m_robotDrive.setDefaultCommand(
+
+                //Joysticks were negative (-theJoystick)
 
                 new RunCommand(() -> m_robotDrive.drive(
                         MathUtil.applyDeadband(-theJoystick.getY()
-                                * (-theJoystick.getRawAxis(3) + 1) / 2,
+                                * (-theJoystick.getRawAxis(3) + 1) / -2,
                                 0.1),
                         MathUtil.applyDeadband(-theJoystick.getX()
-                                * (-theJoystick.getRawAxis(3) + 1) / 2,
+                                * (-theJoystick.getRawAxis(3) + 1) / -2,
                                 0.1),
                         MathUtil.applyDeadband(-theJoystick.getZ()
                                 * (-theJoystick.getRawAxis(3) + 1) / 2,
@@ -318,25 +312,25 @@ public class RobotContainer {
         Trajectory TrajectoryD;
         Trajectory TrajectoryE;
 
- if (AutoConstants.AutoRoute == 234){/*Red Auto 1 2024 */
+ if (AutoConstants.AutoRoute == 429){/*Red Auto 1 2024 */
 
         TrajectoryA = TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d(0)),
                         List.of(  
-                            new Translation2d(1.5, 0)
+                            new Translation2d(-1, 0)
                         ),
-                                new Pose2d(2.9, 0, new Rotation2d(0)),config);
+                                new Pose2d(-1, 1.4, new Rotation2d(0)),config);
 
-        TrajectoryB = TrajectoryGenerator.generateTrajectory(new Pose2d(2.9, 0, new Rotation2d(0)),
+        TrajectoryB = TrajectoryGenerator.generateTrajectory(new Pose2d(-1, 1.4, new Rotation2d(0)),
                         List.of(  
-                            new Translation2d(4.2, -.4)
+                            new Translation2d(-1.5, .7)
                         ),
-                                new Pose2d(5.5, -.7, new Rotation2d(0)),config);
+                               new Pose2d(-2.1, 0, new Rotation2d(0)),config);
 
-         TrajectoryC = TrajectoryGenerator.generateTrajectory(new Pose2d(5.5, -.7, new Rotation2d(0)),
+         TrajectoryC = TrajectoryGenerator.generateTrajectory(new Pose2d(-2.1, 0, new Rotation2d(0)),
                         List.of(  
-                            new Translation2d(4.2, -.4)
+                            new Translation2d(-1.5, 1)
                         ),
-                                new Pose2d(2.9, 0, new Rotation2d(0)),config);
+                                new Pose2d(-1, 1.4, new Rotation2d(0)),config);
         TrajectoryD = TrajectoryGenerator.generateTrajectory(new Pose2d(2.9, 0, new Rotation2d(0)),
                         List.of(  
                             new Translation2d(4.2, .4)
@@ -354,20 +348,47 @@ public class RobotContainer {
 
 
                 return new SequentialCommandGroup(
+                new ShooterRunWheelsCMD(theShooterSubsystem, 0.7).withTimeout(1),
+                        Move(TrajectoryA),
+                    new ParallelCommandGroup(
+
+                        new TestingIntakeRunWheelsCMD(theIntakeSubsystem,"IN"),
+                        new ShooterRunWheelsCMD(theShooterSubsystem, 0.7)
                 
-                    Move(TrajectoryA),
-                     Move(TrajectoryB),
-                     Move(TrajectoryC),
-                     Move(TrajectoryD),
-                     Move(TrajectoryE)
+                        ).withTimeout(1),
+
+                    new ParallelRaceGroup(
+
+                        Move(TrajectoryB),
+
+                        new ParallelCommandGroup(
+                                new NewIntakeArmSetCMD(theNewIntakeArmSubsystem, 0.7),
+                                new TestingIntakeRunWheelsCMD(theIntakeSubsystem, "OUT")
+                        )
+                        ),
+                        new ParallelCommandGroup(
+                        Move(TrajectoryC), 
+                        new NewIntakeArmSetCMD(theNewIntakeArmSubsystem, 0.01)
+                        ),
+                new ShooterRunWheelsCMD(theShooterSubsystem, 0.7).withTimeout(.1),
+                
+                    new ParallelCommandGroup(
+
+                        new TestingIntakeRunWheelsCMD(theIntakeSubsystem,"IN"),
+                        new ShooterRunWheelsCMD(theShooterSubsystem, 0.7)
+                
+                        ).withTimeout(1)
+                     //Move(TrajectoryC),
+                     //Move(TrajectoryD),
+                     //Move(TrajectoryE)
                     
 
             );
                 
         
     
-    }else if (AutoConstants.AutoRoute == 233){/*Red Auto 1 2024 */
-
+    }else if (AutoConstants.AutoRoute == 233){/*Red Auto Right 3 piece 2024 */
+                //Points need to be adjusted
         TrajectoryA = TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d(0)),
                         List.of(  
                             new Translation2d(1.5, 0)
@@ -400,47 +421,120 @@ public class RobotContainer {
 
                 m_robotDrive.resetOdometry(TrajectoryA.getInitialPose());
 
-
+                //Auto Run Command
                 return new SequentialCommandGroup(
+                        //This Moves in front of speaker to shoot
+                        Move(TrajectoryA),
+                   //SpeakerShot
+                    new ShooterRunWheelsCMD(theShooterSubsystem, 0.7).withTimeout(.25),
                 
-                    Move(TrajectoryA),
-                     Move(TrajectoryB),
-                     Move(TrajectoryC)
-                     
-                 
+                    new ParallelCommandGroup(
+
+                        new TestingIntakeRunWheelsCMD(theIntakeSubsystem,"IN"),
+                        new ShooterRunWheelsCMD(theShooterSubsystem, 0.7)
+                
+                        ).withTimeout(1),
+
                     
+                        //drive forward and pickup
+                    new ParallelRaceGroup(
+
+                        Move(TrajectoryB),
+
+                        new ParallelCommandGroup(
+                                new NewIntakeArmSetCMD(theNewIntakeArmSubsystem, 0.7),
+                                new TestingIntakeRunWheelsCMD(theIntakeSubsystem, "OUT")
+                        )
+
+                
+                        ), 
+                        //DriveBack
+                        Move(TrajectoryC),
+                        //SpeakerShot
+                        new NewIntakeArmSetCMD(theNewIntakeArmSubsystem, 0.01),
+                        new ShooterRunWheelsCMD(theShooterSubsystem, 0.7).withTimeout(1),
+                
+                        new ParallelCommandGroup(
+
+                        new TestingIntakeRunWheelsCMD(theIntakeSubsystem,"IN"),
+                        new ShooterRunWheelsCMD(theShooterSubsystem, 0.7)
+                
+                        ).withTimeout(1),
+
+                        //drive Forward and Pickup last far right ring
+                        new ParallelRaceGroup(
+                        Move(TrajectoryD),
+
+                        new ParallelCommandGroup(
+                                new NewIntakeArmSetCMD(theNewIntakeArmSubsystem, 0.7),
+                                new TestingIntakeRunWheelsCMD(theIntakeSubsystem, "OUT")
+                        )
+
+                
+                        ), 
+                        new NewIntakeArmSetCMD(theNewIntakeArmSubsystem, 0.01),
+                        new ShooterRunWheelsCMD(theShooterSubsystem, 0.7).withTimeout(1),
+                
+                    new ParallelCommandGroup(
+
+                        new TestingIntakeRunWheelsCMD(theIntakeSubsystem,"IN"),
+                        new ShooterRunWheelsCMD(theShooterSubsystem, 0.7)
+                
+                        ).withTimeout(1),
+                        new ParallelRaceGroup(
+
+                        //Drive back to speaker and shoot
+                        Move(TrajectoryE),
+
+                        new ParallelCommandGroup(
+                                new NewIntakeArmSetCMD(theNewIntakeArmSubsystem, 0.7),
+                                new TestingIntakeRunWheelsCMD(theIntakeSubsystem, "OUT")
+                        )
+
+                
+                        ), 
+                        new NewIntakeArmSetCMD(theNewIntakeArmSubsystem, 0.01),
+                        new ShooterRunWheelsCMD(theShooterSubsystem, 0.7).withTimeout(.25),
+                
+                    new ParallelCommandGroup(
+
+                        new TestingIntakeRunWheelsCMD(theIntakeSubsystem,"IN"),
+                        new ShooterRunWheelsCMD(theShooterSubsystem, 0.7)
+                
+                        ).withTimeout(1)
+                
 
             );
      } else if (AutoConstants.AutoRoute == 232){/*Red Auto 1 2024 */
 
         TrajectoryA = TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d(0)),
                         List.of(  
-                            new Translation2d(-1.5, 0)
+                            new Translation2d(1.5, 0)
                         ),
-                                new Pose2d(-2.9, 0, new Rotation2d(0)),config);
+                                new Pose2d(2.9, 0, new Rotation2d(0)),config);
 
-        TrajectoryB = TrajectoryGenerator.generateTrajectory(new Pose2d(-2.9, 0, new Rotation2d(0)),
+        TrajectoryB = TrajectoryGenerator.generateTrajectory(new Pose2d(2.9, 0, new Rotation2d(0)),
                         List.of(  
-                            new Translation2d(-5, -.4)
+                            new Translation2d(5, .4)
                         ),
-                                new Pose2d(-6.3, -.7, new Rotation2d(0)),config);
+                                new Pose2d(6.3, .7, new Rotation2d(0)),config);
 
-         TrajectoryC = TrajectoryGenerator.generateTrajectory(new Pose2d(-6.3, -.7, new Rotation2d(0)),
+         TrajectoryC = TrajectoryGenerator.generateTrajectory(new Pose2d(6.3, .7, new Rotation2d(0)),
                         List.of(  
-                            new Translation2d(-5, -.4)
+                            new Translation2d(5, .4)
                         ),
-                                new Pose2d(-2.9, 0, new Rotation2d(0)),config);
-        TrajectoryD = TrajectoryGenerator.generateTrajectory(new Pose2d(-2.9, 0, new Rotation2d(0)),
+                                new Pose2d(2.9, 0, new Rotation2d(0)),config);
+        TrajectoryD = TrajectoryGenerator.generateTrajectory(new Pose2d(2.9, 0, new Rotation2d(0)),
                         List.of(  
-                            new Translation2d(-5, .4)
+                            new Translation2d(5, -.4)
                         ),
-                                new Pose2d(-6.3, .7, new Rotation2d(0)),config);
+                                new Pose2d(6.3, -.7, new Rotation2d(0)),config);
 
-         TrajectoryE = TrajectoryGenerator.generateTrajectory(new Pose2d(-6.3, .7, new Rotation2d(0)),
+         TrajectoryE = TrajectoryGenerator.generateTrajectory(new Pose2d(6.3, -.7, new Rotation2d(0)),
                         List.of(  
-                            new Translation2d(-5, .4)
+                            new Translation2d(5, -.4)
                         ),
-                                new Pose2d(-2.9, 0, new Rotation2d(0)),config);
+                                new Pose2d(2.9, 0, new Rotation2d(0)),config);
 
 
                 m_robotDrive.resetOdometry(TrajectoryA.getInitialPose());
@@ -496,18 +590,18 @@ public class RobotContainer {
                     
 
             );
-      } else if (AutoConstants.AutoRoute == 224){/*Red Auto 2 2024 */
+      } else if (AutoConstants.AutoRoute == 223){/*Red Auto 2 2024 */
         TrajectoryA = TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d(0)),
                         List.of(  
-                            new Translation2d(1.1, 0)
+                            new Translation2d(1.1, -.7)
                         ),
-                                new Pose2d(2, 0, new Rotation2d(0)),config);
+                                new Pose2d(2.1, -1.4, new Rotation2d(0)),config);
 
-        TrajectoryB = TrajectoryGenerator.generateTrajectory(new Pose2d(2, 0, new Rotation2d(0)),
+        TrajectoryB = TrajectoryGenerator.generateTrajectory(new Pose2d(2.1, -1.4, new Rotation2d(0)),
                         List.of(  
-                            new Translation2d(1, -0.8)
+                            new Translation2d(1.1, -0.7)
                         ),
-                                new Pose2d(2, -1.5, new Rotation2d(0)),config);
+                                new Pose2d(0, 0, new Rotation2d(0)),config);
 
         /*TrajectoryC = TrajectoryGenerator.generateTrajectory(new Pose2d(2, -1.5, new Rotation2d(0)),
                         List.of(  
@@ -515,17 +609,17 @@ public class RobotContainer {
                         ),
                                 new Pose2d(3, -2, new Rotation2d(0)),config); */
 
-         TrajectoryC = TrajectoryGenerator.generateTrajectory(new Pose2d(2, -1.5, new Rotation2d(0)),
+         TrajectoryC = TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d(0)),
                         List.of(  
-                            new Translation2d(4.2, 0)
+                            new Translation2d(1.1, 0)
                         ),
-                                new Pose2d(5.5, 0, new Rotation2d(0)),config);
+                                new Pose2d(2.1, 0, new Rotation2d(0)),config);
 
-          TrajectoryD = TrajectoryGenerator.generateTrajectory(new Pose2d(5.5, 0, new Rotation2d(0)),
+          TrajectoryD = TrajectoryGenerator.generateTrajectory(new Pose2d(2.1, 0, new Rotation2d(0)),
                         List.of(  
-                            new Translation2d(4.2, 0)
+                            new Translation2d(1.1, 0)
                         ),
-                                new Pose2d(2.2, 0, new Rotation2d(0)),config);
+                                new Pose2d(0, 0, new Rotation2d(0)),config);
 
                 
 
@@ -824,72 +918,93 @@ public class RobotContainer {
                     .withTimeout(14.9)
                     .andThen(m_robotDrive::setX);
 */
-        } if (AutoConstants.AutoRoute == 1){/*Red Auto 1 2024 */
+        } else if (AutoConstants.AutoRoute == 777){
 
-        TrajectoryA = TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d(0)),
-                        List.of(  
-                            new Translation2d(-1.5, 0)
-                        ),
-                                new Pose2d(-2.2, 0.1, new Rotation2d(0)),config);
-
-        TrajectoryB = TrajectoryGenerator.generateTrajectory(new Pose2d(-2.2, 0.1, new Rotation2d(0)),
-                        List.of(  
-                            new Translation2d(-1.5, 0)
-                        ),
-                                new Pose2d(0, 0.1, new Rotation2d(0)),config);
+                 TrajectoryA = TrajectoryGenerator.generateTrajectory(
+                    new Pose2d(0, 0, new Rotation2d(0)),
+                    List.of(new Translation2d(-2, 0)),
+                    new Pose2d(-4, 0.1, new Rotation2d(0)), config);
 
                 m_robotDrive.resetOdometry(TrajectoryA.getInitialPose());
 
                 return new SequentialCommandGroup(       
-                        new SequentialCommandGroup(
+                         new SequentialCommandGroup(
 
-                       new ShooterTipCMD(theShooterTipSubsystem, .22).withTimeout(.25), //calibrate shooter tip
+                        new ShooterTipCMD(theShooterTipSubsystem, .22).withTimeout(.25),
+                          new ShooterRunWheelsCMD(theShooterSubsystem, -0.8).withTimeout(2),
 
-                       new ShooterRunWheelsCMD(theShooterSubsystem, -0.8).withTimeout(2), //build initial momentum
+                        new ParallelCommandGroup(
 
-                                new ParallelCommandGroup( //shoot note 1 (loaded)
-
-                                         new TestingIntakeRunWheelsCMD(theIntakeSubsystem,"IN"),
-                                         new ShooterRunWheelsCMD(theShooterSubsystem, -0.8)
-               
-                                         ).withTimeout(1)),
-
-                        new ParallelRaceGroup(   //lower intake and run wheels (to pick up note), until position 2 is reached       
-                         
-                         
-                                Move(TrajectoryA),
-
-                                new SequentialCommandGroup(
-
-                                new NewIntakeArmSetCMD(theNewIntakeArmSubsystem, 0.7),
-                                new TestingIntakeRunWheelsCMD(theIntakeSubsystem, "OUT")
-
-                                )),
-
-                        new ParallelRaceGroup( //raise intake with loaded note and return to speaker (0,0)
-
-                                Move(TrajectoryB),
-                                new NewIntakeArmSetCMD(theNewIntakeArmSubsystem, 0.01)
-                                
-                        ),
-
-                        new ShooterRunWheelsCMD(theShooterSubsystem, -0.8).withTimeout(2), //build initial momentum
-
-                                new ParallelCommandGroup( //shoot note 2 
-
-                                         new TestingIntakeRunWheelsCMD(theIntakeSubsystem,"IN"),
-                                         new ShooterRunWheelsCMD(theShooterSubsystem, -0.8)
-               
-                                         ).withTimeout(1));
-
-
-
-
-
-                         
-            
-
+                        new TestingIntakeRunWheelsCMD(theIntakeSubsystem,"IN"),
+                        new ShooterRunWheelsCMD(theShooterSubsystem, -0.8)
                 
+                        ).withTimeout(1)
+
+                ),
+                 Move(TrajectoryA)
+                );
+
+        
+
+        } if (AutoConstants.AutoRoute == 808){/*Red Auto 1 2024 */
+
+                TrajectoryA = TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d(0)),
+                                List.of(  
+                                    new Translation2d(-1.5, 0)
+                                ),
+                                        new Pose2d(-2.2, 0.1, new Rotation2d(0)),config);
+        
+                TrajectoryB = TrajectoryGenerator.generateTrajectory(new Pose2d(-2.2, 0.1, new Rotation2d(0)),
+                                List.of(  
+                                    new Translation2d(-1.5, 0)
+                                ),
+                                        new Pose2d(0, 0.1, new Rotation2d(0)),config);
+        
+                        m_robotDrive.resetOdometry(TrajectoryA.getInitialPose());
+        
+                        return new SequentialCommandGroup(       
+                                new SequentialCommandGroup(
+        
+                               new ShooterTipCMD(theShooterTipSubsystem, .22).withTimeout(.25), //calibrate shooter tip
+        
+                               new ShooterRunWheelsCMD(theShooterSubsystem, -0.8).withTimeout(2), //build initial momentum
+        
+                                        new ParallelCommandGroup( //shoot note 1 (loaded)
+        
+                                                 new TestingIntakeRunWheelsCMD(theIntakeSubsystem,"IN"),
+                                                 new ShooterRunWheelsCMD(theShooterSubsystem, -0.8)
+                       
+                                                 ).withTimeout(1)),
+        
+                                new ParallelRaceGroup(   //lower intake and run wheels (to pick up note), until position 2 is reached       
+                                 
+                                 
+                                        Move(TrajectoryA),
+        
+                                        new ParallelCommandGroup(
+        
+                                        new NewIntakeArmSetCMD(theNewIntakeArmSubsystem, 0.7),
+                                        new TestingIntakeRunWheelsCMD(theIntakeSubsystem, "OUT")
+        
+                                        )),
+        
+                                new ParallelRaceGroup( //raise intake with loaded note and return to speaker (0,0)
+        
+                                        Move(TrajectoryB),
+                                        new NewIntakeArmSetCMD(theNewIntakeArmSubsystem, 0.01)
+                                        
+                                ),
+                                
+                                new IntakeRunWheelsCMD(theIntakeSubsystem, 0.1 ).withTimeout(.7),
+                                new ShooterRunWheelsCMD(theShooterSubsystem, -0.8).withTimeout(2), //build initial momentum
+        
+                                        new ParallelCommandGroup( //shoot note 2 
+        
+                                                 new TestingIntakeRunWheelsCMD(theIntakeSubsystem,"IN"),
+                                                 new ShooterRunWheelsCMD(theShooterSubsystem, -0.8)
+                       
+                                                 ).withTimeout(1));
+
         } else {
 
             Trajectory = TrajectoryGenerator.generateTrajectory(
