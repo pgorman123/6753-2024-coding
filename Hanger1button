@@ -1,1 +1,34 @@
 
+new JoystickButton(theJoystick, 2) //This is the hang button
+            .whileTrue(new NewIntakeArmSetCMD(theNewIntakeArmSubsystem, 0.011));
+
+        //Trajectories still need points
+      
+        TrajectoryA = TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d(0)),
+                        List.of(  
+                            new Translation2d(-.1, .4)
+                        ),
+                                new Pose2d(-.2, .7, new Rotation2d(-30)),config);
+
+        TrajectoryB = TrajectoryGenerator.generateTrajectory(new Pose2d(0, 0, new Rotation2d(0)),
+                        List.of(  
+                            new Translation2d(-.1, .4)
+                        ),
+                                new Pose2d(-.2, .7, new Rotation2d(-30)),config);
+
+        
+
+                m_robotDrive.resetOdometry(TrajectoryA.getInitialPose());
+
+
+                return new SequentialCommandGroup(
+                  //Raise Hooks
+                    new (new ClimberCMD(theClimberSubsystem, 3,3)), 
+                  //drive forward
+                    move(TrajectoryA), 
+                  //lower hooks
+                    new (new ClimberCMD(theClimberSubsystem, 0,0)), 
+                  //drive forward
+                    move(TrajetoryB),
+                  //turn winch
+        
