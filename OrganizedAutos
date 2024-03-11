@@ -1,3 +1,21 @@
+//Odemtry reset test auto, this goes on the right side of the speaker at an angle
+}else if (AutoConstants.AutoRoute == 143){
+
+        TrajectoryA = TrajectoryGenerator.generateTrajectory(new Pose2d(-1, -1, new Rotation2d(-30)),
+                        List.of(  
+                            new Translation2d(-.5, -.5)
+                        ),
+                                new Pose2d(0, 0, new Rotation2d(0)),config);
+
+
+
+                m_robotDrive.resetOdometry(TrajectoryA.getInitialPose());
+
+
+                return new SequentialCommandGroup(
+                //Move to 0
+                Move(TrajectoryA))
+                
 //Auto Blue Left
 }else if (AutoConstants.AutoRoute == 114){/*Red Auto 1 2024 */
 
