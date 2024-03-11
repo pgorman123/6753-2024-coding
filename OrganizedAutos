@@ -23,9 +23,9 @@
                         List.of(  
                             new Translation2d(-.1, .4)
                         ),
-                                new Pose2d(-.2, .7, new Rotation2d(-30)),config);
+                                new Pose2d(-.2, .7, new Rotation2d(30)),config);
 
-        TrajectoryB = TrajectoryGenerator.generateTrajectory(new Pose2d(-.2, .7, new Rotation2d(-30)),
+        TrajectoryB = TrajectoryGenerator.generateTrajectory(new Pose2d(-.2, .7, new Rotation2d(30)),
                         List.of(  
                             new Translation2d(-1, .4)
                         ),
@@ -35,8 +35,8 @@
                         List.of(  
                             new Translation2d(-1, .4)
                         ),
-                                new Pose2d(-.2, .7, new Rotation2d(-30)),config);
-        TrajectoryD = TrajectoryGenerator.generateTrajectory(new Pose2d(-.2, .7, new Rotation2d(-30)),
+                                new Pose2d(-.2, .7, new Rotation2d(30)),config);
+        TrajectoryD = TrajectoryGenerator.generateTrajectory(new Pose2d(-.2, .7, new Rotation2d(30)),
                         List.of(  
                             new Translation2d(-4, 0)
                         ),
@@ -46,8 +46,8 @@
                         List.of(  
                             new Translation2d(-5, 0)
                         ),
-                                new Pose2d(-.2, .7, new Rotation2d(-30)),config);
-         TrajectoryF = TrajectoryGenerator.generateTrajectory(new Pose2d(-.2, .7, new Rotation2d(-30)),
+                                new Pose2d(-.2, .7, new Rotation2d(30)),config);
+         TrajectoryF = TrajectoryGenerator.generateTrajectory(new Pose2d(-.2, .7, new Rotation2d(30)),
                         List.of(  
                             new Translation2d(-5, .4)
                         ),
@@ -56,7 +56,7 @@
                         List.of(  
                             new Translation2d(5, .4)
                         ),
-                                new Pose2d(-.2, .7, new Rotation2d(-30)),config);
+                                new Pose2d(-.2, .7, new Rotation2d(30)),config);
 
 
                 m_robotDrive.resetOdometry(TrajectoryA.getInitialPose());
@@ -320,9 +320,9 @@ if (AutoConstants.AutoRoute == 134){/*Red Auto 1right 3 point 2024 */
                         List.of(  
                             new Translation2d(-.1, -.8)
                         ),
-                                new Pose2d(-.2, -1.7, new Rotation2d(30)),config);
+                                new Pose2d(-.2, -1.7, new Rotation2d(-30)),config);
         //Moves to Far left mid ring
-        TrajectoryB = TrajectoryGenerator.generateTrajectory(new Pose2d(-.2, -1.7, new Rotation2d(30)),
+        TrajectoryB = TrajectoryGenerator.generateTrajectory(new Pose2d(-.2, -1.7, new Rotation2d(-30)),
                         List.of(  
                             new Translation2d(-1.5, 3)
                         ),
@@ -332,9 +332,9 @@ if (AutoConstants.AutoRoute == 134){/*Red Auto 1right 3 point 2024 */
                         List.of(  
                             new Translation2d(-1.5, 3)
                         ),
-                                new Pose2d(-.2, -1.7, new Rotation2d(30)),config);
+                                new Pose2d(-.2, -1.7, new Rotation2d(-30)),config);
         //Moves to left mid mid ring
-        TrajectoryD = TrajectoryGenerator.generateTrajectory(new Pose2d(-.2, -1.7, new Rotation2d(30)),
+        TrajectoryD = TrajectoryGenerator.generateTrajectory(new Pose2d(-.2, -1.7, new Rotation2d(-30)),
                         List.of(  
                             new Translation2d(-1.5, 3)
                         ),
@@ -344,9 +344,9 @@ if (AutoConstants.AutoRoute == 134){/*Red Auto 1right 3 point 2024 */
                         List.of(  
                             new Translation2d(-1.5, 3)
                         ),
-                                new Pose2d(-.2, -1.7, new Rotation2d(30)),config);
+                                new Pose2d(-.2, -1.7, new Rotation2d(-30)),config);
         //Moves out to get left mid midfield ring
-        TrajectoryF = TrajectoryGenerator.generateTrajectory(new Pose2d(-.2, -1.7, new Rotation2d(30)),
+        TrajectoryF = TrajectoryGenerator.generateTrajectory(new Pose2d(-.2, -1.7, new Rotation2d(-30)),
                         List.of(  
                             new Translation2d(-3, 3.4), new Translation2d(-7.5, 3.4)
                         ),
@@ -356,7 +356,7 @@ if (AutoConstants.AutoRoute == 134){/*Red Auto 1right 3 point 2024 */
                         List.of(  
                             new Translation2d(-7.5, 3.4), new Translation2d(-3, 3.4)
                         ),
-                                new Pose2d(-.2, -1.7, new Rotation2d(30)),config);
+                                new Pose2d(-.2, -1.7, new Rotation2d(-30)),config);
 
 
                 m_robotDrive.resetOdometry(TrajectoryA.getInitialPose());
@@ -474,9 +474,9 @@ if (AutoConstants.AutoRoute == 214){/*Red Auto 1right 3 point 2024 */
                         List.of(  
                             new Translation2d(-.1, .8)
                         ),
-                                new Pose2d(-.2, 1.7, new Rotation2d(-30)),config);
+                                new Pose2d(-.2, 1.7, new Rotation2d(30)),config);
         //Moves to Far left mid ring
-        TrajectoryB = TrajectoryGenerator.generateTrajectory(new Pose2d(-.2, 1.7, new Rotation2d(-30)),
+        TrajectoryB = TrajectoryGenerator.generateTrajectory(new Pose2d(-.2, 1.7, new Rotation2d(30)),
                         List.of(  
                             new Translation2d(-1.5, -3)
                         ),
@@ -486,9 +486,9 @@ if (AutoConstants.AutoRoute == 214){/*Red Auto 1right 3 point 2024 */
                         List.of(  
                             new Translation2d(-1.5, -3)
                         ),
-                                new Pose2d(-.2, 1.7, new Rotation2d(-30)),config);
+                                new Pose2d(-.2, 1.7, new Rotation2d(30)),config);
         //Moves to left mid mid ring
-        TrajectoryD = TrajectoryGenerator.generateTrajectory(new Pose2d(-.2, 1.7, new Rotation2d(-30)),
+        TrajectoryD = TrajectoryGenerator.generateTrajectory(new Pose2d(-.2, 1.7, new Rotation2d(30)),
                         List.of(  
                             new Translation2d(-1.5, -3)
                         ),
@@ -498,9 +498,9 @@ if (AutoConstants.AutoRoute == 214){/*Red Auto 1right 3 point 2024 */
                         List.of(  
                             new Translation2d(-1.5, -3)
                         ),
-                                new Pose2d(-.2, 1.7, new Rotation2d(-30)),config);
+                                new Pose2d(-.2, 1.7, new Rotation2d(30)),config);
         //Moves out to get left mid midfield ring
-        TrajectoryF = TrajectoryGenerator.generateTrajectory(new Pose2d(-.2, 1.7, new Rotation2d(-30)),
+        TrajectoryF = TrajectoryGenerator.generateTrajectory(new Pose2d(-.2, 1.7, new Rotation2d(30)),
                         List.of(  
                             new Translation2d(-3, -3.4), new Translation2d(-7.5, -3.4)
                         ),
@@ -510,7 +510,7 @@ if (AutoConstants.AutoRoute == 214){/*Red Auto 1right 3 point 2024 */
                         List.of(  
                             new Translation2d(-7.5, -3.4), new Translation2d(-3, -3.4)
                         ),
-                                new Pose2d(-.2, 1.7, new Rotation2d(-30)),config);
+                                new Pose2d(-.2, 1.7, new Rotation2d(30)),config);
 
 
                 m_robotDrive.resetOdometry(TrajectoryA.getInitialPose());
@@ -785,9 +785,9 @@ if (AutoConstants.AutoRoute == 214){/*Red Auto 1right 3 point 2024 */
                         List.of(  
                             new Translation2d(-.1, -.4)
                         ),
-                                new Pose2d(-.2, -.7, new Rotation2d(30)),config);
+                                new Pose2d(-.2, -.7, new Rotation2d(-30)),config);
 
-        TrajectoryB = TrajectoryGenerator.generateTrajectory(new Pose2d(-.2, -.7, new Rotation2d(30)),
+        TrajectoryB = TrajectoryGenerator.generateTrajectory(new Pose2d(-.2, -.7, new Rotation2d(-30)),
                         List.of(  
                             new Translation2d(-1, -.4)
                         ),
@@ -797,8 +797,8 @@ if (AutoConstants.AutoRoute == 214){/*Red Auto 1right 3 point 2024 */
                         List.of(  
                             new Translation2d(-1, -.4)
                         ),
-                                new Pose2d(-.2, -.7, new Rotation2d(30)),config);
-        TrajectoryD = TrajectoryGenerator.generateTrajectory(new Pose2d(-.2, -.7, new Rotation2d(30)),
+                                new Pose2d(-.2, -.7, new Rotation2d(-30)),config);
+        TrajectoryD = TrajectoryGenerator.generateTrajectory(new Pose2d(-.2, -.7, new Rotation2d(-30)),
                         List.of(  
                             new Translation2d(-4, 0)
                         ),
@@ -808,8 +808,8 @@ if (AutoConstants.AutoRoute == 214){/*Red Auto 1right 3 point 2024 */
                         List.of(  
                             new Translation2d(-5, 0)
                         ),
-                                new Pose2d(-.2, -.7, new Rotation2d(30)),config);
-         TrajectoryF = TrajectoryGenerator.generateTrajectory(new Pose2d(-.2, -.7, new Rotation2d(30)),
+                                new Pose2d(-.2, -.7, new Rotation2d(-30)),config);
+         TrajectoryF = TrajectoryGenerator.generateTrajectory(new Pose2d(-.2, -.7, new Rotation2d(-30)),
                         List.of(  
                             new Translation2d(-5, -.4)
                         ),
@@ -818,7 +818,7 @@ if (AutoConstants.AutoRoute == 214){/*Red Auto 1right 3 point 2024 */
                         List.of(  
                             new Translation2d(5, -.4)
                         ),
-                                new Pose2d(-.2, -.7, new Rotation2d(30)),config);
+                                new Pose2d(-.2, -.7, new Rotation2d(-30)),config);
 
 
                 m_robotDrive.resetOdometry(TrajectoryA.getInitialPose());
