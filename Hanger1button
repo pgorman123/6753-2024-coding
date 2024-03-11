@@ -1,6 +1,6 @@
 
 new JoystickButton(theJoystick, 2) //This is the hang button
-            .whileTrue(new NewIntakeArmSetCMD(theNewIntakeArmSubsystem, 0.011));
+            .whileTrue(return new SequentialCommandGroup(;
 
         //Trajectories still need points
       
@@ -23,12 +23,12 @@ new JoystickButton(theJoystick, 2) //This is the hang button
 
                 return new SequentialCommandGroup(
                   //Raise Hooks
-                    new (new ClimberCMD(theClimberSubsystem, 3,3)), 
+                    new (new ClimberCMD(theClimberSubsystem, 3,3)).withtimeou(5), 
                   //drive forward
-                    move(TrajectoryA), 
+                    move(TrajectoryA).withtimeou(5), 
                   //lower hooks
-                    new (new ClimberCMD(theClimberSubsystem, 0,0)), 
+                    new (new ClimberCMD(theClimberSubsystem, 0,0)).withtimeou(5), 
                   //drive forward
-                    move(TrajetoryB),
+                    move(TrajetoryB).withtimeou(5),
                   //turn winch
         
